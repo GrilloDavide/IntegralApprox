@@ -1,1 +1,27 @@
-<p>home works!</p>
+<div class="container-fluid">
+    <form action="">
+
+        <div class="inputs-field">
+            <label for="inputFunction">Inserire la funzione</label>
+            <input class="form-control outline-secondary" id="inputFunction" type="text" required>
+            <button class="btn btn-outline-secondary" (click)="isAcceptable()">checkifworks</button>
+        </div>
+    
+        <div class="btn-group inputs-field" role="group" aria-label="Basic radio toggle button group" required>
+
+            <input type="radio" class="btn-check" name="Metodo" id="Rettangoli">
+            <label class="btn btn-outline-secondary" for="Rettangoli">Rettangoli</label>
+          
+            <input type="radio" class="btn-check" name="Metodo" id="Trapezi">
+            <label class="btn btn-outline-secondary" for="Trapezi">Trapezi</label>
+          
+            <input type="radio" class="btn-check" name="Metodo" id="Parabola">
+            <label class="btn btn-outline-secondary" for="Parabola">Parabola</label>
+          </div>
+          <div class="inputs-field">
+            <button type="submit" class="btn btn-outline-custom">INVIA</button>
+          </div>
+          
+
+    </form>
+</div>

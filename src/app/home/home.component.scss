@@ -1,0 +1,42 @@
+*{
+    text-align: center;
+    margin: auto;
+}
+
+label{
+    color: white;
+}
+
+.container-fluid{
+    margin-top: 200px;
+    padding:30px;
+    height: auto;
+    max-width: 800px;
+    
+    background: linear-gradient( #343a40,  #343a40) padding-box,
+                linear-gradient(to bottom right, #ff2347, #ff9c08, #e630e6, #44b8ee) border-box;
+    border-radius: 20px;
+    border: 10px solid transparent;
+}
+
+.form-control{
+    margin-bottom: 5px;
+    
+    background-color: #343a40;
+    border: 1px solid rgb(126, 126, 126);
+    max-width: 200px;
+    color: white;
+    
+}
+.inputs-field{
+    
+    margin-top: 20px;
+}
+
+.btn-outline-custom{
+
+    background: linear-gradient( #343a40,  #343a40) padding-box,
+    linear-gradient(to bottom right, #ff2347, #ff9c08, #e630e6, #44b8ee) border-box;
+    color: white;
+}
+
