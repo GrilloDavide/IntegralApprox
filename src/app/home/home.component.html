@@ -1,9 +1,10 @@
 <div class="container-fluid">
-    <form action="">
+    <form (submit)="onSubmit()" [formGroup]="proprieties" class="">
 
         <div class="inputs-field">
             <label for="inputFunction">Inserire la funzione</label>
-            <input class="form-control outline-secondary" id="inputFunction" type="text" required>
+            <input class="form-control outline-secondary" id="inputFunction" type="text" formControlName="inputFunction" required>
+            <p></p><button class="btn btn-outline-custom" (click)="isAcceptable()">check if works</button>
             
         </div>
     
@@ -21,7 +22,5 @@
           <div class="inputs-field">
             <button type="submit" class="btn btn-outline-custom">INVIA</button>
           </div>
-          
-
     </form>
 </div>
