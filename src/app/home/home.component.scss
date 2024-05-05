@@ -1,7 +1,4 @@
-*{
-    text-align: center;
-    margin: auto;
-}
+
 
 label{
     color: white;
@@ -19,18 +16,19 @@ label{
     border: 10px solid transparent;
 }
 
+.inputs-field{
+    margin-top: 25px;
+}
+
 .form-control{
-    margin-bottom: 5px;
     
+    margin-left: auto;
+    margin-right: auto;
     background-color: #343a40;
     border: 1px solid rgb(126, 126, 126);
     max-width: 200px;
     color: white;
     
-}
-.inputs-field{
-    
-    margin-top: 20px;
 }
 
 .btn-outline-custom{

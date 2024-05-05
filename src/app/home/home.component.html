@@ -2,9 +2,17 @@
     <form (submit)="onSubmit()" [formGroup]="proprieties" class="">
 
         <div class="inputs-field">
-            <label for="inputFunction">Inserire la funzione</label>
-            <input class="form-control outline-secondary" id="inputFunction" type="text" formControlName="inputFunction" required>
-            <p></p><button class="btn btn-outline-custom" (click)="isAcceptable()">check if works</button>
+            
+            <div class="my-2">
+              <label for="" *ngIf="inputFunction =='' ">Inserire la funzione da <br>approssimare</label> 
+            </div>
+            <button class="btn btn-outline-custom" (click)="show=!show">mostra calcolatrice</button>
+            <app-calculator *ngIf="show"   (inputFunction)="updateChosenFunction($event)"></app-calculator>
+            <div class="my-3" *ngIf="!show && inputFunction !='' ">
+              <label for="">funzione scelta:</label>
+              <input type="text" class="form-control" [value]="inputFunction" disabled>
+            </div>
+            
             
         </div>
     
