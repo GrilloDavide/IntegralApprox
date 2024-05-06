@@ -22,7 +22,7 @@ export class CalculatorComponent {
   editExpression = (operation : string) => {
     
     if(!this.lastOperation.match(/[0-9]/) && operation === ","){
-      alert("non puoi negro");
+      alert("Syntax Error");
 
       return;
     }
@@ -52,7 +52,13 @@ export class CalculatorComponent {
     this.expression = this.expression.replaceAll("T", "atan");
   }
 
+  checkIfAcceptable(){
+
+  }
+
   done(){
+    
+
     this.inputFunction.emit(this.expression);
     console.log(this.codeExpression);
   }

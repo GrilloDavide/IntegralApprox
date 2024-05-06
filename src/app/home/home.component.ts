@@ -1,7 +1,8 @@
-import { Component, Input, Output } from '@angular/core';
-import { FormControl, FormsModule, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { Component } from '@angular/core';
+import {  FormsModule, ReactiveFormsModule,  } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
+import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { CalculatorComponent } from '../calculator/calculator.component';
 import { CommonModule } from '@angular/common';
@@ -10,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
+  imports: [MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -18,30 +19,23 @@ export class HomeComponent {
   
   show : boolean = false;
 
-  inputFunction : string = "";
+  methods = ["Rettangoli", "Triangoli", "Parabole"];
+  aria_labels = ["right", "center", "left"];
 
-
-  proprieties = this.formBuilder.group({
-    choice: [''],
-    inputFunction: ['']
-  });
-
-  constructor(private formBuilder: FormBuilder) {}
-  
-  isAcceptable(){
-    console.log(this.proprieties.value)
+  form = {
+    boundA : "",
+    boundB : "",
+    function : "",
+    method : ""
   }
 
   updateChosenFunction(chosenFunction: string){
-    this.inputFunction= chosenFunction;
+    this.form.function = chosenFunction;
+    this.show=false;
   }
-  
-  fontStyleControl = new FormControl('');
-  fontStyle?: string;
-
-
+ 
 
   onSubmit(){
-
+    console.log("coc")
   }
 }
