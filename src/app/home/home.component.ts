@@ -36,6 +36,6 @@ export class HomeComponent {
  
 
   onSubmit(){
-    console.log("coc")
+    console.log(this.form)
   }
 }

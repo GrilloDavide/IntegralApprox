@@ -21,11 +21,23 @@ export class CalculatorComponent {
 
   editExpression = (operation : string) => {
     
-    if(!this.lastOperation.match(/[0-9]/) && operation === ","){
+    if(operation.match(/[ ) ]/))                  //check if the user try to put a closed bracket without having opened one
+      if(this.codeExpression.indexOf("(") == -1){
+        alert("Syntax Error");
+  
+        return;
+      } else if (this.codeExpression.length-1 - this.codeExpression.indexOf("(") == 0){ //check if in the brackets there is something
+        alert("Syntax Error");
+  
+        return;
+      }
+
+    if((!this.lastOperation.match(/[0-9]/) && operation === ",") || 
+      (this.lastOperation.match(/[ l ( ^ √ ] , /) && operation.match(/[ l ( ^ √ , ]/))){
       alert("Syntax Error");
 
       return;
-    }
+    }  
       
     if(this.lastOperation.match(/[0-9 e π ) x !]/) && operation.match(/[s c t S C T e π x l ( ^ √ ]/)) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili niggers
       this.codeExpression += "*";
@@ -50,10 +62,6 @@ export class CalculatorComponent {
     this.expression = this.expression.replaceAll("S", "asin");
     this.expression = this.expression.replaceAll("C", "acos");
     this.expression = this.expression.replaceAll("T", "atan");
-  }
-
-  checkIfAcceptable(){
-
   }
 
   done(){

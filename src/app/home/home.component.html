@@ -12,7 +12,6 @@
         </tr>
       </table>
 
-
       <div class="inputs-field">
           <div class="my-2">
             <label for="" *ngIf="!show && form.function =='' ">Inserire la funzione da <br>approssimare</label> 
@@ -27,15 +26,26 @@
           </div>  
       </div>
 
-      <div *ngIf="!show">
-        <mat-button-toggle-group name="methods" [(ngModel)]="form.method">
-          <mat-button-toggle name="method" value="Rectangles"  id="Rectangles">Rettangoli</mat-button-toggle>
-          
-          <mat-button-toggle name="method" value="Triangles"  id="Triangles">Triangoli</mat-button-toggle>
 
-          <mat-button-toggle name="method" value="Parables"  id="Parables">Parabole</mat-button-toggle>
-        </mat-button-toggle-group>
+      <div *ngIf="!show">
+        <div class="inputs-field label-radio">
+          <label for="">Scegliere il metodo di approssimazione:</label>
+        </div>
+        <div class="inputs-field" name="methods">
+          <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Rectangles" id="Rectangles" autocomplete="off" checked>
+            <label class="btn btn-outline-warning" for="Rectangles">Rettangoli</label>
+          
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Triangles" id="Triangles" autocomplete="off">
+            <label class="btn btn-outline-warning" for="Triangles">Triangoli</label>
+          
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Parables" id="Parables" autocomplete="off">
+            <label class="btn btn-outline-warning" for="Parables">Parabole</label>
+          </div>
+        </div>
       </div>
+      
+      
       
       <div class="inputs-field" *ngIf="!show">
         <button type="submit" class="btn btn-outline-custom">INVIA</button>
