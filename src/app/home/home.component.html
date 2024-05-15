@@ -1,51 +1,54 @@
 <div class="container-fluid">
-    <form name="form" #f="ngForm" (ngSubmit)="f.form.valid && onSubmit()">
+    <form name="form" (submit)="onSubmit()">
       <table class="inputs-field" *ngIf="!show">
         <label for="">Definire Intervalli:</label>
         <tr>
           <label for=""> A </label>
           <input [(ngModel)]="form.boundA" type="number" class="form-control mx-2 bounds-inputs" name="boundA" id="boundA" required>
+          <b class="text-danger" *ngIf="boundAError">* Questo campo è obbligatorio</b>
         </tr>
         <tr>
           <label for=""> B </label>
           <input [(ngModel)]="form.boundB" type="number" class="form-control mx-2 bounds-inputs" name="boundB" id="boundB" required>
+          <b class="text-danger" *ngIf="boundBError">* Questo campo è obbligatorio</b>
         </tr>
       </table>
       <div class="inputs-field">
           <div class="my-2">
-            <label for="" *ngIf="!show && form.function =='' ">Inserire la funzione da <br>approssimare</label> 
+            <label for="" *ngIf="!show && form.function =='' ">Inserire la funzione da <br>approssimare </label> 
           </div>
           <button class="btn btn-warning" (click)="show=!show" *ngIf="!show">mostra tastiera</button>
-
+          <div>
+            <b class="text-danger error" *ngIf="functionError">* Questo campo è obbligatorio</b>
+          </div>
+          
           <button class="btn btn-warning my-2" (click)="show=!show" *ngIf="show">nascondi tastiera</button>
           <app-calculator *ngIf="show" (inputFunction)="updateChosenFunction($event)"></app-calculator>
           <div class="my-3" *ngIf="!show && form.function !='' ">
-            <label for="">funzione scelta:</label>
-            <input [(ngModel)]="form.function" type="text" class="form-control" [value]="form.function" name="function" required disabled>
+            <label for="function">funzione scelta: </label> 
+            <input [(ngModel)]="form.function" type="text" class="form-control" [value]="form.function" name="function" id="function" required disabled>
           </div>  
       </div>
 
 
       <div *ngIf="!show">
         <div class="inputs-field label-radio">
-          <label for="">Scegliere il metodo di approssimazione:</label>
+          <label for="methods">Scegliere il metodo di approssimazione:</label>
         </div>
-        <div class="inputs-field" name="methods">
+        <div class="inputs-field" name="methods" id="methods">
           <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Rectangles" id="Rectangles" autocomplete="off" checked>
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Rectangles" id="Rectangles" autocomplete="off" required checked>
             <label class="btn btn-outline-warning" for="Rectangles">Rettangoli</label>
           
-            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Triangles" id="Triangles" autocomplete="off">
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Triangles" id="Triangles" autocomplete="off" required>
             <label class="btn btn-outline-warning" for="Triangles">Triangoli</label>
           
-            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Parables" id="Parables" autocomplete="off">
+            <input [(ngModel)]="form.method" type="radio" class="btn-check" name="methods" value="Parables" id="Parables" autocomplete="off" required>
             <label class="btn btn-outline-warning" for="Parables">Parabole</label>
           </div>
+          <div><b class="text-danger" *ngIf="boundBError">* Questo campo è obbligatorio</b></div>
         </div>
       </div>
-      
-      
-      
       <div class="inputs-field" *ngIf="!show">
         <button type="submit" class="btn btn-outline-custom">INVIA</button>
       </div>

@@ -22,6 +22,11 @@ export class HomeComponent {
   constructor(private requestService : requestService) { }
   
   show : boolean = false;
+  boundAError : boolean = false;
+  boundBError : boolean = false;
+  functionError : boolean = false;
+  methodError : boolean = false;
+
 
   methods = ["Rettangoli", "Triangoli", "Parabole"];
   aria_labels = ["right", "center", "left"];
@@ -38,11 +43,33 @@ export class HomeComponent {
     this.show=false;
   }
  
+  formControl(){
+      this.boundAError = this.form.boundA == "";
+      this.boundBError = this.form.boundB == "";
+      this.functionError = this.form.function == "";
+      this.methodError = this.form.method == "";
+  }
+
+  cFunctionTranslator(functionToTranslate : string){
+    let f = functionToTranslate;
+
+    f = f.replace("√", "sqrt");
+    f = f.replace("π", "M_PI");
+    f = f.replace("e", "M_E");
+
+    console.log(f)
+    return f;
+  }
 
   onSubmit(){
-    console.log(this.form)
+    this.formControl()
 
-    this.requestService.send(this.form.boundA, this.form.boundB, this.form.function, this.form.method).subscribe(res => {
+    if(this.boundAError || this.boundBError || this.functionError || this.methodError)
+      return;
+
+
+
+    this.requestService.send(this.form.boundA, this.form.boundB, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
     });

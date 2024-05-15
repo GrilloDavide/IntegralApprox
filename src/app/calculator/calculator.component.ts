@@ -21,34 +21,54 @@ export class CalculatorComponent {
 
   editExpression = (operation : string) => {
     
-    if(operation.match(/[ ) ]/))                  //check if the user try to put a closed bracket without having opened one
-      if(this.codeExpression.indexOf("(") == -1){
-        alert("Syntax Error");
-  
+
+    if(operation.match(/[ ) ]/)){
+      let openBrackets = 0;
+      let closedBrackets = 0;
+      for(let i = 0; i<this.codeExpression.length; i++){
+        if(this.codeExpression.charAt(i).match(/[ ( ]/))
+          openBrackets++
+          if(this.codeExpression.charAt(i).match(/[ ) ]/))
+          closedBrackets++ 
+      }
+      if(openBrackets - closedBrackets-1 < 0 ){//check if the user try to put a closed bracket without having opened one
+        alert("Syntax Error")
+        
         return;
       } else if (this.codeExpression.length-1 - this.codeExpression.indexOf("(") == 0){ //check if in the brackets there is something
-        alert("Syntax Error");
+        alert("Syntax Error")
   
         return;
       }
+    }              
+      
 
     if((!this.lastOperation.match(/[0-9]/) && operation === ",") || 
       (this.lastOperation.match(/[ l ( ^ √ ] , /) && operation.match(/[ l ( ^ √ , ]/))){
       alert("Syntax Error");
 
       return;
-    }  
-      
-    if((this.lastOperation.match(/[0-9 e π ) x !]/) && operation.match(/[s c t S C T e π x l ( ^ √ ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili niggers
+    }
+
+    if((this.lastOperation.match(/[0-9 e π ) x ]/) && operation.match(/[s c t S C T e π x l ( √ ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili
       this.codeExpression += "*";
 
+    if((this.lastOperation.match(/[s c t S C T]/) && operation.match(/[0-9 s x π c t S C T ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili 
+      this.codeExpression += "(";
+
+
     if (operation == "d")
-        this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
+      this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
+    else if (operation =="√")
+      this.codeExpression += operation+"(";
     else
-        this.codeExpression += operation;
+      this.codeExpression += operation;
     
-    
-    this.lastOperation = operation;
+    if(operation == "d" && this.codeExpression.length > 1)
+
+      this.lastOperation = this.codeExpression.charAt(this.codeExpression.length-1);
+    else
+      this.lastOperation = operation;
     this.updateExpression();
     
   }
@@ -64,7 +84,28 @@ export class CalculatorComponent {
     this.expression = this.expression.replaceAll("T", "atan");
   }
 
+  syntaxCheck(){
+    let openBrackets = 0;
+    let closedBrackets = 0;
+    for(let i = 0; i<this.codeExpression.length; i++){
+      if(this.codeExpression.charAt(i).match(/[ ( ]/))
+        openBrackets++
+        if(this.codeExpression.charAt(i).match(/[ ) ]/))
+        closedBrackets++ 
+    }
+
+    if(openBrackets - closedBrackets-1 < 0 ){//check if the user try to put a closed bracket without having opened one
+      alert("Syntax Error")
+      
+      return true;
+    }
+    return false;
+  }
+
   done(){
-    this.inputFunction.emit(this.expression);
+
+    if(this.syntaxCheck())
+      this.inputFunction.emit(this.expression);
+    else return
   }
 }
