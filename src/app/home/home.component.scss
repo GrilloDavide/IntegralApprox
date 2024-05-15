@@ -16,6 +16,7 @@ label{
     padding:30px;
     
     max-width: 800px;
+    height: 520px;
     
     background: linear-gradient( #343a40,  #343a40) padding-box,
                 linear-gradient(to bottom right, #ff2347, #ff9c08, #e630e6, #44b8ee) border-box;
@@ -58,7 +59,6 @@ label{
     max-width: 60px;
     margin-top: 5px;
     display: inline-block;
-    
 }
 
 .label-radio{
@@ -66,6 +66,9 @@ label{
 }
 
 .btn-outline-custom{
+
+    height: 40px;
+    width: 80px;
 
     background: linear-gradient( #343a40,  #343a40) padding-box,
     linear-gradient(to bottom right, #ff2347, #ff9c08, #e630e6, #44b8ee) border-box;

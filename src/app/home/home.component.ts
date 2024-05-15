@@ -6,6 +6,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { CalculatorComponent } from '../calculator/calculator.component';
 import { CommonModule } from '@angular/common';
+import { requestService } from '../request.service';
+
 
 
 @Component({
@@ -16,6 +18,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+
+  constructor(private requestService : requestService) { }
   
   show : boolean = false;
 
@@ -37,5 +41,10 @@ export class HomeComponent {
 
   onSubmit(){
     console.log(this.form)
+
+    this.requestService.send(this.form.boundA, this.form.boundB, this.form.function, this.form.method).subscribe(res => {
+
+      console.log(res)
+    });
   }
 }

@@ -6,35 +6,28 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class requestService {
-  
 
   constructor(private httpClient : HttpClient) { }
 
 
-  login(name : string, surname : string, email : string, username : string, password : string) {
+  send(boundA : string, boundB : string, expression : string, method : string) {
     let http_headers = new HttpHeaders().set("Content-Type", "application/json")
-    return this.httpClient.post<Valid>("http://localhost:80/",
-      '{"name":"' + name + 
-      '", "surname":"' + surname + 
-      '", "email":"' + email +
-      '", "username":"' + username +
-      '", "password":"' + password +
+    return this.httpClient.post("http://localhost:8080",
+      '{"bound A":"' + boundA + 
+      '", "bound B":"' + boundB + 
+      '", "expression":"' + expression +
+      '", "method":"' + method +
       '"}', 
       {headers:http_headers}
     )
   }
+
 }
 
-export interface Valid {
-  valid : boolean
-}
-
-export interface User {
+export interface Data {
     
-  email : string,
-  id : number,
-  name : string,
-  password : string,
-  surname : string,
-  username : string
+  boundA : number,
+  boundb : number,
+  expression : string,
+  method : string
 }

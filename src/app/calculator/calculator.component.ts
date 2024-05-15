@@ -39,7 +39,7 @@ export class CalculatorComponent {
       return;
     }  
       
-    if(this.lastOperation.match(/[0-9 e π ) x !]/) && operation.match(/[s c t S C T e π x l ( ^ √ ]/)) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili niggers
+    if((this.lastOperation.match(/[0-9 e π ) x !]/) && operation.match(/[s c t S C T e π x l ( ^ √ ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili niggers
       this.codeExpression += "*";
 
     if (operation == "d")
@@ -65,9 +65,6 @@ export class CalculatorComponent {
   }
 
   done(){
-    
-
     this.inputFunction.emit(this.expression);
-    console.log(this.codeExpression);
   }
 }

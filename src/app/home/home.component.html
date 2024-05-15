@@ -4,14 +4,13 @@
         <label for="">Definire Intervalli:</label>
         <tr>
           <label for=""> A </label>
-          <input [(ngModel)]="form.boundA" type="number" class="form-control mx-2 bounds-inputs" name="boundA" required>
+          <input [(ngModel)]="form.boundA" type="number" class="form-control mx-2 bounds-inputs" name="boundA" id="boundA" required>
         </tr>
         <tr>
           <label for=""> B </label>
-          <input [(ngModel)]="form.boundB" type="number" class="form-control mx-2 bounds-inputs" name="boundB" required>
+          <input [(ngModel)]="form.boundB" type="number" class="form-control mx-2 bounds-inputs" name="boundB" id="boundB" required>
         </tr>
       </table>
-
       <div class="inputs-field">
           <div class="my-2">
             <label for="" *ngIf="!show && form.function =='' ">Inserire la funzione da <br>approssimare</label> 
