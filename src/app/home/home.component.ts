@@ -43,8 +43,8 @@ export class HomeComponent {
   aria_labels = ["right", "center", "left"];
 
   form = {
-    boundA : "",
-    boundB : "",
+    boundA : 0,
+    boundB : 0,
     n : "",
     function : "",
     method : ""
@@ -62,12 +62,12 @@ export class HomeComponent {
   }
  
   formControl(){
-      this.boundAError = this.form.boundA == "".trim();
-      this.boundBError = this.form.boundB == "".trim();
+      this.boundAError = this.form.boundA < 0;
+      this.boundBError = this.form.boundB < 0;
       this.nError = this.form.n == "".trim() || parseInt(this.form.n) < 0;
       this.functionError = this.form.function == "".trim();
       this.methodError = this.form.method == "".trim();
-      this.errors = this.form.boundA == "".trim() || this.form.boundB == "".trim() || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
+      this.errors = this.form.boundA < 0 || this.form.boundB < 0 || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
   }
 
   cFunctionTranslator(functionToTranslate : string){
@@ -76,6 +76,7 @@ export class HomeComponent {
     f = f.replace("√", "sqrt");
     f = f.replace("π", "M_PI");
     f = f.replace("e", "M_E");
+    f = f.replace("ln", "log");
 
     console.log(f)
     return f;
@@ -84,12 +85,12 @@ export class HomeComponent {
   onSubmit(){
     this.formControl()
 
-    if(this.boundAError || this.boundBError || this.functionError || this.methodError)
+    if(this.boundAError || this.boundBError || this.nError || this.functionError || this.methodError)
       return;
 
 
 
-    this.requestService.send(this.form.boundA, this.form.boundB, this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
+    this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
       console.log(JSON.stringify(res))
