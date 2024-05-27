@@ -10,11 +10,12 @@ export class requestService {
   constructor(private httpClient : HttpClient) { }
 
 
-  send(boundA : string, boundB : string, expression : string, method : string) {
+  send(boundA : string, boundB : string, n : string, expression : string, method : string) {
     let http_headers = new HttpHeaders().set("Content-Type", "application/json")
     return this.httpClient.post("http://localhost:8080",
       '{"bound A":"' + boundA + 
       '", "bound B":"' + boundB + 
+      '", "n":"' + n +
       '", "expression":"' + expression +
       '", "method":"' + method +
       '"}', 

@@ -22,8 +22,13 @@ export class HomeComponent {
   constructor(private requestService : requestService) { }
   
   show : boolean = false;
+
+  codeExpression : string = "";
+
+  errors : boolean = false;
   boundAError : boolean = false;
   boundBError : boolean = false;
+  nError : boolean = false;
   functionError : boolean = false;
   methodError : boolean = false;
 
@@ -34,20 +39,29 @@ export class HomeComponent {
   form = {
     boundA : "",
     boundB : "",
+    n : "",
     function : "",
     method : ""
   }
 
-  updateChosenFunction(chosenFunction: string){
+  updateExpression(chosenFunction: string){
     this.form.function = chosenFunction;
     this.show=false;
+
+  
+  }
+
+  updateCodeExpression(codeExpression : string){
+    this.codeExpression = codeExpression;
   }
  
   formControl(){
-      this.boundAError = this.form.boundA == "";
-      this.boundBError = this.form.boundB == "";
-      this.functionError = this.form.function == "";
-      this.methodError = this.form.method == "";
+      this.boundAError = this.form.boundA == "".trim();
+      this.boundBError = this.form.boundB == "".trim();
+      this.nError = this.form.n == "".trim() || parseInt(this.form.n) < 0;
+      this.functionError = this.form.function == "".trim();
+      this.methodError = this.form.method == "".trim();
+      this.errors = this.form.boundA == "".trim() || this.form.boundB == "".trim() || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
   }
 
   cFunctionTranslator(functionToTranslate : string){
@@ -69,7 +83,7 @@ export class HomeComponent {
 
 
 
-    this.requestService.send(this.form.boundA, this.form.boundB, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
+    this.requestService.send(this.form.boundA, this.form.boundB, this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
     });

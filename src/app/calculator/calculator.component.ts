@@ -1,8 +1,7 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatButtonModule} from '@angular/material/button';
-import { last } from 'rxjs';
 
 @Component({
   selector: 'app-calculator',
@@ -11,13 +10,25 @@ import { last } from 'rxjs';
   templateUrl: './calculator.component.html',
   styleUrl: './calculator.component.scss'
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements OnInit{
 
-  @Output() inputFunction = new EventEmitter<string>();
-  expression : string = ""; //this is what the user sees
-  codeExpression = ""; //this is what the code sees
+  @Output() emitCodeExpression = new EventEmitter<string>();
+  @Output() emitExpression = new EventEmitter<string>();
+  @Input()
+  inputExpression!: string; //this is what the user sees
+  @Input()
+  inputCodeExpression!: string; //this is what the code sees
+
+  expression : string = "";
+  codeExpression : string = "";
   lastOperation : string = "";
   amIdecimal : boolean = false;
+
+  ngOnInit(){
+    this.expression = this.inputExpression;
+    this.codeExpression = this.inputCodeExpression;
+    
+  }
 
   editExpression = (operation : string) => {
     
@@ -32,7 +43,7 @@ export class CalculatorComponent {
           closedBrackets++ 
       }
       if(openBrackets - closedBrackets-1 < 0 ){//check if the user try to put a closed bracket without having opened one
-        alert("Syntax Error")
+        alert("Syntax fwsefwesf Error")
         
         return;
       } else if (this.codeExpression.length-1 - this.codeExpression.indexOf("(") == 0){ //check if in the brackets there is something
@@ -45,7 +56,7 @@ export class CalculatorComponent {
 
     if((!this.lastOperation.match(/[0-9]/) && operation === ",") || 
       (this.lastOperation.match(/[ l ( ^ √ ] , /) && operation.match(/[ l ( ^ √ , ]/))){
-      alert("Syntax Error");
+      alert("Syntax 234 Error");
 
       return;
     }
@@ -59,7 +70,7 @@ export class CalculatorComponent {
 
     if (operation == "d")
       this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
-    else if (operation =="√")
+    else if (operation.match(/[ l √ s c t S C T ] , /))
       this.codeExpression += operation+"(";
     else
       this.codeExpression += operation;
@@ -84,17 +95,18 @@ export class CalculatorComponent {
     this.expression = this.expression.replaceAll("T", "atan");
   }
 
+
   syntaxCheck(){
     let openBrackets = 0;
     let closedBrackets = 0;
     for(let i = 0; i<this.codeExpression.length; i++){
       if(this.codeExpression.charAt(i).match(/[ ( ]/))
         openBrackets++
-        if(this.codeExpression.charAt(i).match(/[ ) ]/))
+      if(this.codeExpression.charAt(i).match(/[ ) ]/))
         closedBrackets++ 
     }
 
-    if(openBrackets - closedBrackets-1 < 0 ){//check if the user try to put a closed bracket without having opened one
+    if(openBrackets - closedBrackets > 0 ){//check if the user try to put a closed bracket without having opened one
       alert("Syntax Error")
       
       return true;
@@ -104,8 +116,11 @@ export class CalculatorComponent {
 
   done(){
 
-    if(this.syntaxCheck())
-      this.inputFunction.emit(this.expression);
-    else return
+    if(!this.syntaxCheck()){
+      this.emitCodeExpression.emit(this.codeExpression);
+      this.emitExpression.emit(this.expression);
+    }
+      console.log(this.codeExpression)  
   }
 }
+
