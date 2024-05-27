@@ -53,7 +53,6 @@ export class CalculatorComponent implements OnInit{
       }
     }              
       
-
     if((!this.lastOperation.match(/[0-9]/) && operation === ",") || 
       (this.lastOperation.match(/[ l ( ^ √ ] , /) && operation.match(/[ l ( ^ √ , ]/))){
       alert("Syntax 234 Error");
@@ -68,9 +67,10 @@ export class CalculatorComponent implements OnInit{
       this.codeExpression += "(";
 
 
+
     if (operation == "d")
       this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
-    else if (operation.match(/[ l √ s c t S C T ] , /))
+    else if (operation.match(/[ l √ s c t S C T ] /))
       this.codeExpression += operation+"(";
     else
       this.codeExpression += operation;

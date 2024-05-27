@@ -12,7 +12,7 @@ export class requestService {
 
   send(boundA : string, boundB : string, n : string, expression : string, method : string) {
     let http_headers = new HttpHeaders().set("Content-Type", "application/json")
-    return this.httpClient.post("http://localhost:8080",
+    return this.httpClient.post("http://integral-approx.ddns.net:80",
       '{"bound A":"' + boundA + 
       '", "bound B":"' + boundB + 
       '", "n":"' + n +

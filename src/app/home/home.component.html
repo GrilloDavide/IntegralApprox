@@ -1,4 +1,4 @@
-<div  class="container-fluid">
+<div class="container-fluid" *ngIf="!resultIsReady">
     <form name="form" (submit)="onSubmit()">
       <table class="inputs-field" *ngIf="!show">
         <tr>
@@ -63,4 +63,11 @@
       </div>
       <p class="text-danger my-3" *ngIf="errors"> * È necessario compilare questi campi </p>
     </form>
+</div>
+
+<div class="container-fluid" *ngIf="!resultIsReady">
+  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom d-flex">Torna indietro</button>
+  <div class="title">TEMPO IMPIEGATO: {{time}}</div>
+
+  <div><app-my-chart ></app-my-chart></div>
 </div>

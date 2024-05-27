@@ -6,24 +6,30 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import { CalculatorComponent } from '../calculator/calculator.component';
 import { CommonModule } from '@angular/common';
-import { requestService } from '../request.service';
-
-
+import { requestService } from '../services/request.service';
+import { GraphService } from '../services/graph.service';
+import { RouterOutlet, RouterLink } from '@angular/router';
+import { MyChartComponent } from '../my-chart/my-chart.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
+  imports: [RouterLink, MyChartComponent, RouterOutlet,MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
 
-  constructor(private requestService : requestService) { }
+  constructor(private requestService : requestService, public graphService : GraphService) { }
   
   show : boolean = false;
 
+  resultIsReady : boolean = false;
+
   codeExpression : string = "";
+
+  time !: number;
+  value !: number;
 
   errors : boolean = false;
   boundAError : boolean = false;
@@ -86,6 +92,13 @@ export class HomeComponent {
     this.requestService.send(this.form.boundA, this.form.boundB, this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
+      console.log(JSON.stringify(res))
+
+      /* this.resultIsReady = true
+      
+      
+      
+      */
     });
   }
 }
