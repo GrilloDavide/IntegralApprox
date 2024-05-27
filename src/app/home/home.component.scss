@@ -63,6 +63,12 @@ label{
     display: inline-block;
 }
 
+.n-input{
+    max-width: 85px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
 .label-radio{
     margin-bottom: -15px;
 }
@@ -79,8 +85,27 @@ label{
     box-shadow: 0px 0px 10px 2px  #131516;
 }
 
+.back-btn{
+    width: 90px;
+    height: 60px;
+    font-size: 18px;
+    padding: 2px;
+    position: relative;
+    top: 290px;
+}
+
+.results{
+    position: relative;
+    top: 100px;
+    margin-top: 15px;
+    color: white;
+    font-size: 20px;
+   
+}
+
 
 .title{
     font-size: 30px;
     color: white;
+    font-style: italic;
 }

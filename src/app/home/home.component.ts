@@ -9,12 +9,11 @@ import { CommonModule } from '@angular/common';
 import { requestService } from '../services/request.service';
 import { GraphService } from '../services/graph.service';
 import { RouterOutlet, RouterLink } from '@angular/router';
-import { MyChartComponent } from '../my-chart/my-chart.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, MyChartComponent, RouterOutlet,MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
+  imports: [RouterLink, RouterOutlet,MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -28,8 +27,8 @@ export class HomeComponent {
 
   codeExpression : string = "";
 
-  time !: number;
-  value !: number;
+  time : number = 10;
+  value : number = 200;
 
   errors : boolean = false;
   boundAError : boolean = false;
@@ -103,8 +102,8 @@ export class HomeComponent {
     f = f.replace("√", "sqrt");
     f = f.replace("π", "M_PI");
     f = f.replace("e", "M_E");
-    f = f.replace("ln", "Math.log");
-    f = f.replace(/(\d+)\^(\d+)/g, 'Math.pow($1, $2)')
+    f = f.replace("ln", "log");
+    f = f.replace(/(\d+)\^(\d+)/g, 'pow($1, $2)')
     console.log(f)
     return f;
   }
@@ -120,13 +119,17 @@ export class HomeComponent {
     this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
-      console.log(JSON.stringify(res))
+      let prova : payload = res as any;
+      
+      this.time = prova.time;
+      this.value = prova.time;
 
-      /* this.resultIsReady = true
       
-      
-      
-      */
     });
   }
+}
+
+interface payload{
+  value : number;
+  time : number;
 }

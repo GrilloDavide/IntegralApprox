@@ -6,7 +6,7 @@
         </tr>
         <tr>
           <td colspan="2">
-            <input [(ngModel)]="form.n" type="number" class="form-control mx-2 bounds-inputs" name="n" id="n" min="0" required>
+            <input [(ngModel)]="form.n" type="number" class="form-control mx-2 n-input" name="n" id="n" min="0" required>
             
           </td>
         </tr>
@@ -59,15 +59,20 @@
         </div>
       </div>
       <div class="inputs-field" *ngIf="!show">
-        <button type="submit" class="btn btn-outline-custom">INVIA</button>
+        <button type="submit" (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom">INVIA</button>
       </div>
       <p class="text-danger my-3" *ngIf="errors"> * È necessario compilare questi campi </p>
     </form>
 </div>
 
 <div class="container-fluid" *ngIf="resultIsReady">
-  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom d-flex">Torna indietro</button>
-  <div class="title">TEMPO IMPIEGATO: {{time}}</div>
+  <div class="title"><b>ƒ(x)={{form.function}}</b></div>
 
-  <div><app-my-chart [myFunction]="form.function"></app-my-chart></div>
+  <div class="results">
+    Risultato: {{value}}
+  </div>
+  <div class="results">
+    Tempo impiegato: {{time}}
+  </div>
+  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block">Torna indietro</button>
 </div>
