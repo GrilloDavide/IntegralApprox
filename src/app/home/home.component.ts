@@ -122,7 +122,7 @@ export class HomeComponent {
       let prova : payload = res as any;
       
       this.time = prova.time;
-      this.value = prova.time;
+      this.value = prova.value;
       this.resultIsReady=!this.resultIsReady;
       
     });
