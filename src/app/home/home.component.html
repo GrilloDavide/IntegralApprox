@@ -69,5 +69,5 @@
   <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom d-flex">Torna indietro</button>
   <div class="title">TEMPO IMPIEGATO: {{time}}</div>
 
-  <div><app-my-chart ></app-my-chart></div>
+  <div><app-my-chart [myFunction]="form.function"></app-my-chart></div>
 </div>

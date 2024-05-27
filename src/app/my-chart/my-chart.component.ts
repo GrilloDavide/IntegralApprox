@@ -13,12 +13,12 @@ import { tick } from '@angular/core/testing';
 })
 export class MyChartComponent {
 
-  @Input() function !: string;
+  @Input() myFunction !: string;
 
   chartOptions = {
     animationEnabled: true,
     title: {
-        text: "Music Album Sales by Year"
+        text: this.myFunction
     },
     axisY: {
         valueFormatString: "#0,,.",
@@ -36,14 +36,24 @@ export class MyChartComponent {
 }
 
 functionToEval(){
-  this.function.replace("sin", "Math.sin")
+  this.myFunction.replace("sin", "Math.sin")
+  this.myFunction.replace("asin", "Math.asin")
+  this.myFunction.replace("cos", "Math.cos")
+  this.myFunction.replace("acos", "Math.acos")
+  this.myFunction.replace("tan", "Math.tan")
+  this.myFunction.replace("atan", "Math.atan")
+  this.myFunction.replace("√", "Math.sqrt")
+  this.myFunction.replace("π", "Math.PI")
+  this.myFunction.replace("ℯ", "Math.E")
 }
 
-generateData(){
-  for (let i = -50; i < 50; i++) {
-    this.chartOptions.data[0].dataPoints.push({x : i,y : eval(this.function.replace("x",i.toString()))})
-  
+  generateData(){
+    for (let i = -50; i < 50; i++) {
+      this.chartOptions.data[0].dataPoints.push({x : i,y : eval(this.myFunction.replace("x",i.toString()))})
+    
+    }
   }
-}
 
+
+  
 }
