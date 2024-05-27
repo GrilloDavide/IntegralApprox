@@ -123,7 +123,7 @@ export class HomeComponent {
       
       this.time = prova.time;
       this.value = prova.time;
-
+      this.resultIsReady=!this.resultIsReady;
       
     });
   }
