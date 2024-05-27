@@ -60,17 +60,17 @@ export class CalculatorComponent implements OnInit{
       return;
     }
 
-    if((this.lastOperation.match(/[0-9 e π ) x ]/) && operation.match(/[s c t S C T e π x l ( √ ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili
+    if(this.lastOperation.match(/[0-9 e π ) x ]/) && operation.match(/[s c t S C T e π x l ( √ ]/) ) 
       this.codeExpression += "*";
 
-    if((this.lastOperation.match(/[s c t S C T]/) && operation.match(/[0-9 s x π c t S C T ]/)) ) //controllare che prima dei fattoriali ci siano numeri o cose fattoriabili 
+    if(this.lastOperation.match(/[s c t S C T]/) && operation.match(/[0-9 s x π c t S C T ]/) )
       this.codeExpression += "(";
 
 
 
     if (operation == "d")
       this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
-    else if (operation.match(/[ l √ s c t S C T ] /))
+    else if (operation.match(/[l √ s c t S C T]/))
       this.codeExpression += operation+"(";
     else
       this.codeExpression += operation;

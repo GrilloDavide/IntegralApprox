@@ -54,7 +54,7 @@ export class HomeComponent {
     this.form.function = chosenFunction;
     this.show=false;
 
-  
+    console.log(this.cFunctionTranslator(this.form.function))
   }
 
   updateCodeExpression(codeExpression : string){
@@ -70,6 +70,33 @@ export class HomeComponent {
       this.errors = this.form.boundA < 0 || this.form.boundB < 0 || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
   }
 
+  expressionPowFix(f : string){
+    let stringa  = f
+    let pos = f.indexOf("^")
+
+    let exprToPow;
+
+    if (stringa[pos - 1] == 'x') {
+
+        exprToPow = "x"
+    }
+    else if (stringa[pos - 1] == ')') {
+
+        let open_bracket = 0;
+        for (let i = pos; i >= 0; i--) {
+            
+            if (stringa[i] == '(')
+                open_bracket = i;
+        }
+
+        exprToPow = stringa.substring(open_bracket, pos);
+    }
+    else{
+      this.form.function = ""
+      alert("potenza non valida, utilizzare gli alert")
+    }
+  }
+
   cFunctionTranslator(functionToTranslate : string){
     let f = functionToTranslate;
 
@@ -77,7 +104,7 @@ export class HomeComponent {
     f = f.replace("π", "M_PI");
     f = f.replace("e", "M_E");
     f = f.replace("ln", "log");
-
+    f = f.replace(/(\d+)\^(\d+)/g, 'Math.pow($1, $2)')
     console.log(f)
     return f;
   }
