@@ -103,7 +103,7 @@ export class HomeComponent {
     f = f.replace("√", "sqrt");
     f = f.replace("π", "M_PI");
     f = f.replace("e", "M_E");
-    f = f.replace("ln", "log");
+    f = f.replace("ln", "Math.log");
     f = f.replace(/(\d+)\^(\d+)/g, 'Math.pow($1, $2)')
     console.log(f)
     return f;
