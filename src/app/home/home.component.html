@@ -67,7 +67,7 @@
 
 <div class="container-fluid" *ngIf="resultIsReady">
   <div class="title"><b>ƒ(x)={{form.function}}</b></div>
-
+  
   <div class="results">
     Risultato: {{value}}
   </div>
@@ -75,7 +75,9 @@
     Tempo impiegato: {{time}}
   </div>
   <div>
-    <app-chart [myFx]="form.function" ></app-chart>
+    <button class="btn btn-warning" (click)="showGraph=!showGraph;"  *ngIf="!showGraph">mostra grafico (WIP)</button>
+    <button class="btn btn-warning my-2 " (click)="showGraph=!showGraph;" *ngIf="showGraph">nascondi grafico</button>
+    <app-chart [myFx]="form.function" *ngIf="showGraph"></app-chart>
   </div>
-  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block">Torna indietro</button>
+  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block" *ngIf="!showGraph">Torna indietro</button>
 </div>

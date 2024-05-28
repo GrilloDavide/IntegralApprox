@@ -27,7 +27,7 @@ export class ChartComponent implements OnInit {
           labels: [],
           datasets: [{
               data: [],
-              
+              label: 'f(x)',
               tension: 0.4,
               pointStyle: false,
               borderColor: documentStyle.getPropertyValue('--blue-500'),

@@ -23,6 +23,7 @@ export class HomeComponent {
   constructor(private requestService : requestService, public graphService : GraphService) { }
   
   show : boolean = false;
+  showGraph : boolean = false;
 
   resultIsReady : boolean = false;
 
