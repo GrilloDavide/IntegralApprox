@@ -76,11 +76,9 @@
     Tempo impiegato: {{time}}
   </div>
   <div>
-    <button class="btn btn-warning" (click)="showGraph=!showGraph;"  *ngIf="!showGraph">mostra grafico (WIP)</button>
-    <button class="btn btn-warning my-2 " (click)="showGraph=!showGraph;" *ngIf="showGraph">nascondi grafico</button>
-    <app-chart [compiledForm]="form" *ngIf="showGraph"></app-chart>
+    <app-chart [compiledForm]="form"></app-chart>
   </div>
-  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block" *ngIf="!showGraph">Torna indietro</button>
+  <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block">Torna indietro</button>
 </div>
 
 </div>

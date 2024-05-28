@@ -98,12 +98,12 @@ this.generateValues(this.functionTranslator(this.compiledForm.function))
     console.log(f);
     return f;
 }
-
+/*
   generateValues(f : string){
    
-    for (let index = 0; index < 62; index+=0.5) {
-      this.data.labels[index]= index-30;
-      this.data.datasets[0].data[index] = eval(f.replaceAll("x",(index-30).toString()))
+    for (let index = 0; index < 20; index+=0.1) {
+      this.data.labels[index]= index-10;
+      this.data.datasets[0].data[index] = eval(f.replaceAll("x",(index-10).toString()))
      
       
       
@@ -112,6 +112,32 @@ this.generateValues(this.functionTranslator(this.compiledForm.function))
     console.log(this.data.labels)
     console.log(this.data.datasets[0])
   }
+*/generateValues(f: string) {
+    // Initialize labels and datasets arrays
+    this.data.labels = [];
+    this.data.datasets[0].data = [];
+
+    // Function to safely evaluate the expression
+    const safeEval = new Function('x', `return ${f}`);
+
+    for (let index = 0; index < 21; index += 0.1) {
+      const x = parseFloat((index - 10).toFixed(3));
+      this.data.labels.push(x);
+        
+        try {
+            // Evaluate the function and push the result to the dataset
+            const value = parseFloat(safeEval(x).toFixed(3));
+            this.data.datasets[0].data.push(value);
+        } catch (error) {
+            console.error(`Error evaluating expression at x=${x}:`, error);
+            this.data.datasets[0].data.push(NaN); // Push NaN in case of an error
+        }
+    }
+
+    console.log(this.data.labels);
+    console.log(this.data.datasets[0]);
+}
+
 }
 
 
