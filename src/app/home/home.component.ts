@@ -103,7 +103,7 @@ export class HomeComponent {
     this.formControl()
 
 
-    if(this.form.boundA < this.form.boundB){
+    if(this.form.boundA > this.form.boundB){
       let temp = this.form.boundA
       this.form.boundA = this.form.boundB
       this.form.boundB = temp
