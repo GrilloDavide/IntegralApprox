@@ -74,7 +74,7 @@ export class HomeComponent {
         const exponentRegex = /(\([^()]+\)|\w+\([^()]+\)|\w+|\d+)(\^\s*)(\([^()]+\)|\w+\([^()]+\)|\w+|\d+)/g;
 
         return expression.replace(exponentRegex, (match: string, base: string, operator: string, exponent: string) => {
-            return `pow(${base}, ${exponent})`;
+            return `pow(${base}; ${exponent})`;
         });
     }
 
@@ -101,6 +101,15 @@ export class HomeComponent {
 
   onSubmit(){
     this.formControl()
+
+
+    if(this.form.boundA < this.form.boundB){
+      let temp = this.form.boundA
+      this.form.boundA = this.form.boundB
+      this.form.boundB = temp
+      alert("Gli estremi A e B sono stati invertiti")
+    }
+
 
     if(this.errors)
       return;

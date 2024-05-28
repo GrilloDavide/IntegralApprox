@@ -60,7 +60,7 @@ export class ChartComponent implements OnInit {
                 ticks: {
                     min: -20,
                     max: 40,
-                    stepSize: 5 // Set an appropriate step size for ticks
+                    stepSize: 2 // Set an appropriate step size for ticks
                 }
             }]
         }
