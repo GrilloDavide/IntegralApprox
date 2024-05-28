@@ -14,7 +14,7 @@ export class ChartComponent implements OnInit {
 
   options: any;
   
-  @Input() myFx!: string;
+  @Input() compiledForm! : form;
 
   ngOnInit() {
 
@@ -46,54 +46,64 @@ export class ChartComponent implements OnInit {
                 }
             }
         },
-        elements:{
-          point:{
-              borderWidth: 0,
-              radius: 10,
-              backgroundColor: 'rgba(0,0,0,0)'
-          }
-      },
-        scales: {
-            x: {
-                ticks: {
-                    color: textColorSecondary,
-                    autoskip:true,
-                },
-                grid: {
-                    color: surfaceBorder
-                }
-            },
-            y: {
-                ticks: {
-                    color: textColorSecondary,
-                    autoskip:true,
-                },
-                grid: {
-                    color: surfaceBorder
-                }
+        elements: {
+            point: {
+                borderWidth: 0,
+                radius: 10,
+                backgroundColor: 'rgba(0,0,0,0)'
             }
+        },
+        scales: {
+            xAxes: [{
+                type: 'linear',
+                position: 'bottom',
+                ticks: {
+                    min: -20,
+                    max: 40,
+                    stepSize: 5 // Set an appropriate step size for ticks
+                }
+            }]
         }
       };
 
-this.generateValues(this.functionTranslator(this.myFx))
-  }
-
-  functionTranslator(functionToTranslate : string){
-    let f = functionToTranslate;
-    f = f.replace("√", "Math.sqrt");
-    f = f.replace("π", "Math.PI");
-    f = f.replace("e", "Math.E");
-    f = f.replace("ln", "Math.log");
-    f = f.replace(/(\d+)\^(\d+)/g, 'pow($1, $2)').replace(/\b(sin|cos|tan)(([^)]+))/g, 'Math.$1($2)')
-    return f;
+this.generateValues(this.functionTranslator(this.compiledForm.function))
   }
 
   
+  functionTranslator(functionToTranslate: string): string {
+    function replaceExponents(expression: string): string {
+        const exponentRegex = /(\([^()]+\)|\w+|\d+)\^(\([^()]+\)|\w+|\d+)/g;
+
+        return expression.replace(exponentRegex, (match: string, base: string, exponent: string) => {
+            base = replaceExponents(base);
+            exponent = replaceExponents(exponent);
+            return `${base} ** ${exponent}`;
+        });
+    }
+
+    let f: string = functionToTranslate;
+    console.log(functionToTranslate);
+    f = f.replace(/√/g, "Math.sqrt");
+    f = f.replace(/π/g, "Math.PI");
+    f = f.replace(/\be\b/g, "Math.E");
+    f = f.replace(/\bln\b/g, "Math.log");
+    f = f.replace(/\bsin\b/g, "Math.sin");
+    f = f.replace(/\bcos\b/g, "Math.cos");
+    f = f.replace(/\btan\b/g, "Math.tan");
+    f = f.replace(/\basin\b/g, "Math.asin");
+    f = f.replace(/\bacos\b/g, "Math.acos");
+    f = f.replace(/\batan\b/g, "Math.atan");
+    f = replaceExponents(f);
+
+    console.log(f);
+    return f;
+}
+
   generateValues(f : string){
    
-    for (let index = 0; index < 40; index++) {
-      this.data.labels[index]= index-15;
-      this.data.datasets[0].data[index] = eval(f.replace("x",(index).toString()))
+    for (let index = 0; index < 62; index+=0.5) {
+      this.data.labels[index]= index-30;
+      this.data.datasets[0].data[index] = eval(f.replaceAll("x",(index-30).toString()))
      
       
       
@@ -102,4 +112,13 @@ this.generateValues(this.functionTranslator(this.myFx))
     console.log(this.data.labels)
     console.log(this.data.datasets[0])
   }
+}
+
+
+interface form{
+  boundA : number,
+  boundB : number,
+  n : string,
+  function : string,
+  method : string
 }

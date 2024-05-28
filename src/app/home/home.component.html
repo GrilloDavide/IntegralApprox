@@ -1,5 +1,6 @@
-<div class="container-fluid" *ngIf="!resultIsReady">
-    <form name="form" (submit)="onSubmit()">
+<div class="bg-dark">
+  <div class="container-fluid bg-dark" *ngIf="!resultIsReady">
+    <form name="form" (submit)="onSubmit()" >
       <table class="inputs-field" *ngIf="!show">
         <tr>
           <td colspan="2"><label for="n">Definire numero intervalli:</label><b class="text-danger" *ngIf="nError"> *</b></td>
@@ -77,7 +78,9 @@
   <div>
     <button class="btn btn-warning" (click)="showGraph=!showGraph;"  *ngIf="!showGraph">mostra grafico (WIP)</button>
     <button class="btn btn-warning my-2 " (click)="showGraph=!showGraph;" *ngIf="showGraph">nascondi grafico</button>
-    <app-chart [myFx]="form.function" *ngIf="showGraph"></app-chart>
+    <app-chart [compiledForm]="form" *ngIf="showGraph"></app-chart>
   </div>
   <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block" *ngIf="!showGraph">Torna indietro</button>
+</div>
+
 </div>

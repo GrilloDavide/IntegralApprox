@@ -40,8 +40,6 @@ export class HomeComponent {
   methodError : boolean = false;
 
 
-  methods = ["Rettangoli", "Triangoli", "Parabole"];
-  aria_labels = ["right", "center", "left"];
 
   form = {
     boundA : 0,
@@ -63,46 +61,68 @@ export class HomeComponent {
   }
  
   formControl(){
-      this.boundAError = this.form.boundA < 0;
-      this.boundBError = this.form.boundB < 0;
       this.nError = this.form.n == "".trim() || parseInt(this.form.n) < 0;
       this.functionError = this.form.function == "".trim();
       this.methodError = this.form.method == "".trim();
-      this.errors = this.form.boundA < 0 || this.form.boundB < 0 || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
+
+      this.errors = this.boundAError || this.boundBError || this.nError || this.functionError || this.methodError;
   }
 
 
-  cFunctionTranslator(functionToTranslate : string){
-    let f = functionToTranslate;
+  cFunctionTranslator(functionToTranslate: string): string {
+    function replaceExponents(expression: string): string {
+        const exponentRegex = /(\([^()]+\)|\w+\([^()]+\)|\w+|\d+)(\^\s*)(\([^()]+\)|\w+\([^()]+\)|\w+|\d+)/g;
 
-    f = f.replace("√", "sqrt");
-    f = f.replace("π", "M_PI");
-    f = f.replace("e", "M_E");
-    f = f.replace("ln", "log");
-    f = f.replace(/(\d+)\^(\d+)/g, 'pow($1, $2)')
-    console.log(f)
+        return expression.replace(exponentRegex, (match: string, base: string, operator: string, exponent: string) => {
+            return `pow(${base}, ${exponent})`;
+        });
+    }
+
+    let f: string = functionToTranslate;
+    console.log(functionToTranslate);
+
+    // Replace special symbols and functions
+    f = f.replace(/√/g, "sqrt");
+    f = f.replace(/π/g, "M_PI");
+    f = f.replace(/\be\b/g, "M_E");
+    f = f.replace(/\bln\b/g, "log");
+    f = f.replace(/\bsin\b/g, "sin");
+    f = f.replace(/\bcos\b/g, "cos");
+    f = f.replace(/\btan\b/g, "tan");
+    f = f.replace(/\basin\b/g, "asin");
+    f = f.replace(/\bacos\b/g, "acos");
+    f = f.replace(/\batan\b/g, "atan");
+    f = replaceExponents(f);
+
+    console.log(f);
     return f;
-  }
+}
+
 
   onSubmit(){
     this.formControl()
 
-    if(this.boundAError || this.boundBError || this.nError || this.functionError || this.methodError)
+    if(this.errors)
       return;
 
+if(this.form.boundA < this.form.boundB){
+  let temp = this.form.boundA;
+  this.form.boundA = this.form.boundB;
+  this.form.boundA = temp;
+}
+  
 
+  console.log(this.form)
+  this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
+
+    console.log(res)
+    let prova : payload = res as any;
     
-    this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
-
-      console.log(res)
-      let prova : payload = res as any;
-      
-      this.time = prova.time;
-      this.value = prova.value;
-      
-      
-    });
-    this.resultIsReady=!this.resultIsReady;
+    this.time = prova.time;
+    this.value = prova.value;
+       
+  });
+  this.resultIsReady=!this.resultIsReady;
   }
 }
 

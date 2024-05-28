@@ -43,7 +43,7 @@ export class CalculatorComponent implements OnInit{
           if(this.codeExpression.charAt(i).match(/[ ) ]/))
           closedBrackets++ 
       }
-      if(openBrackets - closedBrackets-1 < 0 ){//check if the user try to put a closed bracket without having opened one
+      if(openBrackets - closedBrackets - 1 < 0 ){//check if the user try to put a closed bracket without having opened one
         alert("Syntax Error")
         
         return;
@@ -52,17 +52,21 @@ export class CalculatorComponent implements OnInit{
   
         return;
       }
-    }              
+    }  
+    
       
-    if((!this.lastOperation.match(/[0-9]/) && operation === ",") || 
-      (this.lastOperation.match(/[ l ( ^ √ ] , /) && operation.match(/[ l ( ^ √ , ]/))){
-      alert("Syntax Error");
-
-      return;
+    if((operation.match(/[ ^ +  * \/  ]/))){
+      if(this.lastOperation.match(/[ l ( ^ √ + - * \/  ]/) || operation.length == 0){
+        alert("Errore di sintassi");
+        return;
+      }
+        
+      
     }
 
-    if(this.lastOperation.match(/[0-9 e π ) x ]/) && operation.match(/[s c t S C T e π x l ( √ ]/) ) 
-      this.codeExpression += "*";
+    if(this.lastOperation.match(/[0-9 e π ) x ]/) && operation.match(/[ 0-9 s c t S C T e π x l ( √ ]/))
+      if(!(this.lastOperation.match(/[0-9]/) && operation.match(/[0-9]/)))
+        this.codeExpression += "*";
 
     if (operation == "d")
       this.codeExpression = this.codeExpression.substring(0, this.codeExpression.length - 1);
