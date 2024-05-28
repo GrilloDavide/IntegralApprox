@@ -90,8 +90,8 @@ export class HomeComponent {
       return;
 
 
-this.resultIsReady=!this.resultIsReady;
-    /*this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
+    
+    this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
       let prova : payload = res as any;
@@ -100,7 +100,8 @@ this.resultIsReady=!this.resultIsReady;
       this.value = prova.value;
       
       
-    });*/
+    });
+    this.resultIsReady=!this.resultIsReady;
   }
 }
 
