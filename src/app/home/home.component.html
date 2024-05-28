@@ -68,12 +68,16 @@
 
 <div class="container-fluid" *ngIf="resultIsReady">
   <div class="title"><b>ƒ(x)={{form.function}}</b></div>
-  
-  <div class="results">
-    Risultato: {{value}}
-  </div>
-  <div class="results">
-    Tempo impiegato: {{time}}
+  <div class="results-wrapper">
+    <div class="results text-start">
+      Intervallo: {{form.boundA}} - {{form.boundB}} <br>
+      Numero Intervalli: {{form.n}}
+      
+    </div>
+    <div class="results text-end">
+      Risultato: {{value}} <br>
+      Tempo impiegato: {{time}} ns
+    </div>
   </div>
   <div>
     <app-chart [compiledForm]="form"></app-chart>

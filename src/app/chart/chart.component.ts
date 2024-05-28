@@ -19,18 +19,23 @@ export class ChartComponent implements OnInit {
   ngOnInit() {
 
       const documentStyle = getComputedStyle(document.documentElement);
-      const textColor = documentStyle.getPropertyValue('--text-color');
+      const textColor = 'rgba(0,0,0,0.8)';
       const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-      const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
+      const borderColor = documentStyle.getPropertyValue('--green-700');
       
       this.data = {
           labels: [],
           datasets: [{
+            segment: {
+              borderColor: () => {
+                  return  borderColor;
+              },
+          },
               data: [],
               label: 'f(x)',
               tension: 0.4,
               pointStyle: false,
-              borderColor: documentStyle.getPropertyValue('--blue-500'),
+              borderColor: borderColor,
               
           }]
       };
@@ -54,15 +59,12 @@ export class ChartComponent implements OnInit {
             }
         },
         scales: {
-            xAxes: [{
-                type: 'linear',
-                position: 'bottom',
-                ticks: {
-                    min: -20,
-                    max: 40,
-                    stepSize: 2 // Set an appropriate step size for ticks
-                }
-            }]
+          x: {
+            
+          },
+          y: {
+            
+          }
         }
       };
 

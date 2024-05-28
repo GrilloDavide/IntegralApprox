@@ -99,10 +99,13 @@ export class HomeComponent {
 
 
   onSubmit(){
-    this.formControl()
+
+    this.formControl() //check on the errors
+    if(this.errors)
+      return;
 
 
-    if(this.form.boundA > this.form.boundB){
+    if(this.form.boundA > this.form.boundB){//check on the A and B bounds, if A > B they get swapped
       let temp = this.form.boundA
       this.form.boundA = this.form.boundB
       this.form.boundB = temp
@@ -110,8 +113,7 @@ export class HomeComponent {
     }
 
 
-    if(this.errors)
-      return;
+    
 
 if(this.form.boundA < this.form.boundB){
   let temp = this.form.boundA;
@@ -128,10 +130,10 @@ if(this.form.boundA < this.form.boundB){
     
     this.time = prova.time;
     this.value = prova.value;
-       
-  });
-  this.resultIsReady=!this.resultIsReady;
+    
+  });this.resultIsReady=!this.resultIsReady;   
   }
+  
 }
 
 interface payload{
