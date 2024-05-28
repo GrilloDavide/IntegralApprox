@@ -9,11 +9,12 @@ import { CommonModule } from '@angular/common';
 import { requestService } from '../services/request.service';
 import { GraphService } from '../services/graph.service';
 import { RouterOutlet, RouterLink } from '@angular/router';
+import { ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterLink, RouterOutlet,MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
+  imports: [RouterLink, ChartComponent, RouterOutlet,MatButtonModule, MatIconModule, MatButtonToggleModule, ReactiveFormsModule, MatInputModule, FormsModule, CalculatorComponent, CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -43,7 +44,7 @@ export class HomeComponent {
 
   form = {
     boundA : 0,
-    boundB : 0,
+    boundB : 1,
     n : "",
     function : "",
     method : ""
@@ -69,32 +70,6 @@ export class HomeComponent {
       this.errors = this.form.boundA < 0 || this.form.boundB < 0 || this.form.n == "".trim() ||  parseInt(this.form.n) < 0 || this.form.function == "".trim() || this.form.method == "".trim();
   }
 
-  expressionPowFix(f : string){
-    let stringa  = f
-    let pos = f.indexOf("^")
-
-    let exprToPow;
-
-    if (stringa[pos - 1] == 'x') {
-
-        exprToPow = "x"
-    }
-    else if (stringa[pos - 1] == ')') {
-
-        let open_bracket = 0;
-        for (let i = pos; i >= 0; i--) {
-            
-            if (stringa[i] == '(')
-                open_bracket = i;
-        }
-
-        exprToPow = stringa.substring(open_bracket, pos);
-    }
-    else{
-      this.form.function = ""
-      alert("potenza non valida, utilizzare gli alert")
-    }
-  }
 
   cFunctionTranslator(functionToTranslate : string){
     let f = functionToTranslate;
@@ -115,17 +90,17 @@ export class HomeComponent {
       return;
 
 
-
-    this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
+this.resultIsReady=!this.resultIsReady;
+    /*this.requestService.send(this.form.boundA.toString(), this.form.boundB.toString(), this.form.n, this.cFunctionTranslator(this.form.function), this.form.method).subscribe(res => {
 
       console.log(res)
       let prova : payload = res as any;
       
       this.time = prova.time;
       this.value = prova.value;
-      this.resultIsReady=!this.resultIsReady;
       
-    });
+      
+    });*/
   }
 }
 

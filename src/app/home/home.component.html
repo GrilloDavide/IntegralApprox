@@ -74,5 +74,8 @@
   <div class="results">
     Tempo impiegato: {{time}}
   </div>
+  <div>
+    <app-chart [myFx]="form.function" ></app-chart>
+  </div>
   <button (click)="resultIsReady=!resultIsReady" class="btn btn-outline-custom back-btn d-inline-block">Torna indietro</button>
 </div>

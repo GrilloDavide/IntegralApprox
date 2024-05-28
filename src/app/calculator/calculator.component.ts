@@ -14,6 +14,7 @@ export class CalculatorComponent implements OnInit{
 
   @Output() emitCodeExpression = new EventEmitter<string>();
   @Output() emitExpression = new EventEmitter<string>();
+  
   @Input()
   inputExpression!: string; //this is what the user sees
   @Input()
